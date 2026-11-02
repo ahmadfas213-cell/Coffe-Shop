@@ -19,6 +19,7 @@ create table if not exists public.products (
   id uuid primary key default gen_random_uuid(),
   category_id uuid references public.categories(id) on delete set null,
   name text not null,
+  category text not null default 'Other',
   description text,
   price numeric(12,2) not null check (price >= 0),
   image_url text,
@@ -119,3 +120,17 @@ drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
 after insert on auth.users
 for each row execute procedure public.handle_new_user();
+
+-- Product categories are stored as labels for this lightweight first release.
+-- Seed starter catalog only when the products table is empty.
+insert into public.products (name, category, description, price, image_url, is_available)
+select seed.name, seed.category, seed.description, seed.price, seed.image_url, true
+from (values
+ ('Brown Sugar Latte','Coffee','Espresso, milk, brown sugar',32000::numeric,'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=700&q=85'),
+ ('Iced Americano','Coffee','Double espresso, cold water',24000::numeric,'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=700&q=85'),
+ ('Cappuccino','Coffee','Espresso with silky milk foam',28000::numeric,'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=700&q=85'),
+ ('Matcha Latte','Non Coffee','Japanese matcha, fresh milk',30000::numeric,'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=700&q=85'),
+ ('Cafe Mocha','Coffee','Espresso, chocolate, milk',33000::numeric,'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=700&q=85'),
+ ('Butter Croissant','Bakery','Flaky, buttery, freshly baked',22000::numeric,'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=700&q=85')
+) as seed(name,category,description,price,image_url)
+where not exists (select 1 from public.products);
