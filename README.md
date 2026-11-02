@@ -64,3 +64,34 @@ Workflow tersedia di `.github/workflows/deploy.yml` dan berjalan saat ada push k
 ## Status integrasi
 
 Aplikasi sudah disiapkan untuk membaca dan menulis produk, pesanan, item pesanan, serta stok ke Supabase. Login Google tetap memerlukan konfigurasi OAuth di dashboard Google dan Supabase. Jalankan schema SQL sebelum menghubungkan kredensial agar tabel dan policy tersedia.
+
+
+## Modul operasional tambahan
+
+BREWLY menyediakan 20 modul operasional:
+1. POS / kasir multi-menu
+2. Customer CRM
+3. Loyalty points
+4. Promotions
+5. Expense tracker
+6. Supplier directory
+7. Purchase orders
+8. Recipe book
+9. Menu costing
+10. Staff directory
+11. Shift planner
+12. Attendance
+13. Table management
+14. Reservations
+15. Kitchen display
+16. Delivery tracker
+17. Refund requests
+18. Cash flow
+19. Cash closing
+20. Task checklist
+
+### Mengaktifkan penyimpanan lintas perangkat untuk modul tambahan
+
+Setelah menjalankan `supabase/schema.sql`, jalankan juga seluruh isi `supabase/brewly_v2_addons.sql` melalui Supabase SQL Editor. File add-on ini hanya menambahkan tabel `workspace_records` dan policy RLS-nya. Tanpa migration tersebut, data modul tambahan tetap dapat dicoba dalam mode demo tetapi disimpan lokal di browser perangkat.
+
+Tombol Install tersedia di kanan atas halaman login dan dashboard. BREWLY dapat dipasang sebagai PWA melalui browser yang mendukung instalasi.
