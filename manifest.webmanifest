@@ -1,0 +1,34 @@
+{
+  "name": "BREWLY Coffee House",
+  "short_name": "BREWLY",
+  "description": "Coffee shop management workspace",
+  "id": "/Coffe-Shop/",
+  "start_url": "/Coffe-Shop/",
+  "scope": "/Coffe-Shop/",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
+  "background_color": "#f3eee6",
+  "theme_color": "#79543d",
+  "categories": [
+    "business",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "./icons/brewly-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/brewly-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
