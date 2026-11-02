@@ -264,11 +264,32 @@ tbody tr:hover{background:rgba(164,119,88,.055)}
 @media(max-width:1050px){.app{grid-template-columns:220px minmax(0,1fr)}.content-grid{grid-template-columns:1fr}.stock-alerts{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:720px){.app{display:block}.sidebar{padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(249,246,241,.82);backdrop-filter:blur(28px) saturate(175%);-webkit-backdrop-filter:blur(28px) saturate(175%)}:root[data-theme=dark] .sidebar{background:rgba(31,27,24,.88)}.main{padding:20px 14px 106px}.topbar{margin-bottom:18px}.topbar h1{font-size:26px}.welcome-panel{align-items:flex-start;flex-direction:column;padding:20px;margin-bottom:13px}.welcome-panel .btn{width:100%}.stats{gap:9px}.stats .card{padding:14px;min-height:105px}.stat-value{font-size:21px}.products{gap:9px}.product-img{height:108px}.stock-alert-panel{padding:16px;margin-top:12px}.stock-alerts{grid-template-columns:1fr}.report-heading{align-items:flex-start}.report-heading .btn{font-size:11px;padding:10px}.brand,.eyebrow,.side-bottom{display:none}}
 @media(prefers-reduced-motion:reduce){.nav button,.card,.btn{transition:none!important}}
-</style></head>
+</style>
+<style id="brewly-logo-contrast-fix">
+.brand-mark.brewly-symbol{
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 auto;
+  background:#67432f!important;
+  border:1px solid rgba(70,43,29,.32)!important;
+  box-shadow:0 7px 18px rgba(77,48,31,.22),inset 0 1px 0 rgba(255,255,255,.24)!important;
+}
+.brand-mark.brewly-symbol svg{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+.brand strong{color:var(--text)!important}
+:root[data-theme=light] .brand-mark.brewly-symbol{background:#67432f!important}
+:root[data-theme=dark] .brand-mark.brewly-symbol{background:#765139!important;border-color:rgba(255,255,255,.16)!important}
+</style>
+</head>
 <body>
 <div id="login" class="login-screen">
   <div class="card login-card">
-    <div class="brand"><div class="brand-mark brewly-symbol"><svg viewBox='0 0 48 48' role='img' aria-label='BREWLY' xmlns='http://www.w3.org/2000/svg'><rect x='1' y='1' width='46' height='46' rx='15' fill='url(#brewlyLogoBg)'/><path d='M25.8 9.5c-7.5 2.1-13.2 9.9-11.4 17.2 1.5 6.1 7.1 10.7 12.8 10.1 7.4-.8 11.6-8.6 9-16.1-1.7-5-5.5-9.1-10.4-11.2Z' fill='none' stroke='#fff8ef' stroke-width='2.5' stroke-linecap='round'/><path d='M18.7 31.5c5.4-4.2 9-9.5 11.3-16.4' fill='none' stroke='#fff8ef' stroke-width='2.2' stroke-linecap='round'/><path d='M19.7 22.1c2.5.1 4.8 1.2 6.4 3.1M23 16.8c2.6.2 4.8 1.3 6.4 3.2' fill='none' stroke='#fff8ef' stroke-width='1.5' stroke-linecap='round' opacity='.85'/><defs><linearGradient id='brewlyLogoBg' x1='5' y1='4' x2='44' y2='46' gradientUnits='userSpaceOnUse'><stop stop-color='#bd9270'/><stop offset='1' stop-color='#654330'/></linearGradient></defs></svg></div><strong>BREWLY</strong></div>
+    <div class="brand"><div class="brand-mark brewly-symbol"><svg viewBox="0 0 48 48" role="img" aria-label="BREWLY" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="46" height="46" rx="15" fill="#67432f"/><path d="M25.8 9.5c-7.5 2.1-13.2 9.9-11.4 17.2 1.5 6.1 7.1 10.7 12.8 10.1 7.4-.8 11.6-8.6 9-16.1-1.7-5-5.5-9.1-10.4-11.2Z" fill="none" stroke="#fffaf3" stroke-width="2.8" stroke-linecap="round"/><path d="M18.7 31.5c5.4-4.2 9-9.5 11.3-16.4" fill="none" stroke="#fffaf3" stroke-width="2.5" stroke-linecap="round"/><path d="M19.7 22.1c2.5.1 4.8 1.2 6.4 3.1M23 16.8c2.6.2 4.8 1.3 6.4 3.2" fill="none" stroke="#fffaf3" stroke-width="1.8" stroke-linecap="round" opacity=".92"/></svg></div><strong>BREWLY</strong></div>
     <span class="pill">COFFEE HOUSE MANAGEMENT</span>
     <h1>Good coffee.<br>Better days.</h1>
     <p>Kelola menu, pesanan, dan aktivitas coffee shop dalam satu tempat.</p>
@@ -281,7 +302,7 @@ tbody tr:hover{background:rgba(164,119,88,.055)}
 </div>
 <div id="app" class="app hidden">
 <aside class="sidebar">
-  <div class="brand"><div class="brand-mark brewly-symbol"><svg viewBox='0 0 48 48' role='img' aria-label='BREWLY' xmlns='http://www.w3.org/2000/svg'><rect x='1' y='1' width='46' height='46' rx='15' fill='url(#brewlyLogoBg)'/><path d='M25.8 9.5c-7.5 2.1-13.2 9.9-11.4 17.2 1.5 6.1 7.1 10.7 12.8 10.1 7.4-.8 11.6-8.6 9-16.1-1.7-5-5.5-9.1-10.4-11.2Z' fill='none' stroke='#fff8ef' stroke-width='2.5' stroke-linecap='round'/><path d='M18.7 31.5c5.4-4.2 9-9.5 11.3-16.4' fill='none' stroke='#fff8ef' stroke-width='2.2' stroke-linecap='round'/><path d='M19.7 22.1c2.5.1 4.8 1.2 6.4 3.1M23 16.8c2.6.2 4.8 1.3 6.4 3.2' fill='none' stroke='#fff8ef' stroke-width='1.5' stroke-linecap='round' opacity='.85'/><defs><linearGradient id='brewlyLogoBg' x1='5' y1='4' x2='44' y2='46' gradientUnits='userSpaceOnUse'><stop stop-color='#bd9270'/><stop offset='1' stop-color='#654330'/></linearGradient></defs></svg></div><strong>BREWLY</strong></div>
+  <div class="brand"><div class="brand-mark brewly-symbol"><svg viewBox="0 0 48 48" role="img" aria-label="BREWLY" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="46" height="46" rx="15" fill="#67432f"/><path d="M25.8 9.5c-7.5 2.1-13.2 9.9-11.4 17.2 1.5 6.1 7.1 10.7 12.8 10.1 7.4-.8 11.6-8.6 9-16.1-1.7-5-5.5-9.1-10.4-11.2Z" fill="none" stroke="#fffaf3" stroke-width="2.8" stroke-linecap="round"/><path d="M18.7 31.5c5.4-4.2 9-9.5 11.3-16.4" fill="none" stroke="#fffaf3" stroke-width="2.5" stroke-linecap="round"/><path d="M19.7 22.1c2.5.1 4.8 1.2 6.4 3.1M23 16.8c2.6.2 4.8 1.3 6.4 3.2" fill="none" stroke="#fffaf3" stroke-width="1.8" stroke-linecap="round" opacity=".92"/></svg></div><strong>BREWLY</strong></div>
   <div class="eyebrow">WORKSPACE</div>
   <nav class="nav">
     <button class="active" data-page="overview"><span class="ico">⌂</span>Overview</button>
