@@ -1,4 +1,4 @@
-const CACHE_NAME = "brewly-shell-v1";
+const CACHE_NAME = "brewly-shell-v2";
 const APP_SHELL_URL = new URL("./index.html", self.registration.scope).href;
 const SHELL_FILES = [
   new URL("./", self.registration.scope).href,
