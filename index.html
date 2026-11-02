@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f5f1e9">
+<meta name="theme-color" content="#79543d">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="./icons/brewly-192.svg">
+<link rel="apple-touch-icon" href="./icons/brewly-192.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="BREWLY">
+<meta name="mobile-web-app-capable" content="yes">
 <title>BREWLY — Coffee House</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 48 48%22%3E%3Crect width=%2248%22 height=%2248%22 rx=%2215%22 fill=%22%2379543d%22/%3E%3Cpath d=%22M26 9C14 12 10 25 16 33s20 5 21-7c1-8-4-14-11-17Z%22 fill=%22none%22 stroke=%22%23fff8ef%22 stroke-width=%223%22/%3E%3Cpath d=%22M19 32 30 15%22 stroke=%22%23fff8ef%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -269,6 +275,8 @@ tbody tr:hover{background:rgba(164,119,88,.055)}
     <button id="google-login" class="google"><b>G</b> Continue with Google</button>
     <div class="demo">Mode demo tersedia sebelum Supabase dikonfigurasi.</div>
     <button id="demo-login" class="btn" style="margin-top:12px;width:100%">Masuk sebagai demo</button>
+    <button id="install-app-login" class="btn" data-install-app style="margin-top:10px;width:100%">↓ Install BREWLY</button>
+    <div class="muted" style="font-size:10px;margin-top:9px">Pasang di perangkat supaya bisa dibuka seperti aplikasi.</div>
   </div>
 </div>
 <div id="app" class="app hidden">
@@ -305,7 +313,7 @@ tbody tr:hover{background:rgba(164,119,88,.055)}
   <section id="page-menu" class="hidden"><div class="card"><div class="section-head"><h2>Menu management</h2><button class="btn primary" id="add-menu">+ Add item</button></div><div class="table-wrap"><table><thead><tr><th>PRODUCT</th><th>CATEGORY</th><th>PRICE</th><th>AVAILABILITY</th></tr></thead><tbody id="menu-table"></tbody></table></div></div></section>
   <section id="page-inventory" class="hidden"><div class="card"><div class="section-head"><h2>Inventory</h2><button class="btn primary" id="add-stock">+ Add stock</button></div><div class="table-wrap"><table><thead><tr><th>INGREDIENT</th><th>STOCK</th><th>UNIT</th><th>STATUS</th></tr></thead><tbody id="inventory-table"></tbody></table></div></div></section>
   <section id="page-reports" class="hidden"><div class="section-head report-heading"><div><h2>Laporan penjualan</h2><span>Ringkasan transaksi BREWLY</span></div><button class="btn primary" id="export-report">↓ Ekspor CSV</button></div><div class="grid stats"><div class="card"><div class="stat-label">All-time revenue</div><div class="stat-value" id="all-revenue">Rp 0</div></div><div class="card"><div class="stat-label">Completed orders</div><div class="stat-value" id="completed-count">0</div></div></div><div class="card"><div class="section-head"><h2>Sales summary</h2><span>ALL RECORDED TRANSACTIONS</span></div><div id="report-summary" class="empty">Belum ada transaksi.</div></div></section>
-  <section id="page-settings" class="hidden"><div class="grid content-grid"><div class="card"><div class="section-head"><h2>Preferences</h2></div><p class="muted" style="font-size:12px">Atur tampilan aplikasi.</p><div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)"><div><b style="font-size:13px">Appearance</b><div class="muted" style="font-size:11px;margin-top:4px">Pilih mode terang atau gelap</div></div><button class="btn" id="settings-theme">Switch theme</button></div><div style="padding:14px 0"><b style="font-size:13px">Account</b><p id="account-detail" class="muted" style="font-size:12px">Demo account</p><button class="btn" id="logout">Sign out</button></div></div><div class="card"><div class="section-head"><h2>BREWLY</h2></div><p class="muted" style="font-size:12px;line-height:1.8">Coffee shop workspace untuk mengelola pesanan, katalog menu, stok bahan, dan laporan penjualan. Data demo disimpan di browser ini.</p><span class="pill">VERSION 1.0.0</span></div></div></section>
+  <section id="page-settings" class="hidden"><div class="grid content-grid"><div class="card"><div class="section-head"><h2>Preferences</h2></div><p class="muted" style="font-size:12px">Atur tampilan aplikasi.</p><div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)"><div><b style="font-size:13px">Appearance</b><div class="muted" style="font-size:11px;margin-top:4px">Pilih mode terang atau gelap</div></div><button class="btn" id="settings-theme">Switch theme</button></div><div style="padding:14px 0;border-bottom:1px solid var(--line)"><b style="font-size:13px">Install application</b><p class="muted" style="font-size:11px;line-height:1.6;margin:6px 0 11px">Pasang BREWLY ke home screen atau desktop. Android dan Windows mendukung instalasi dari browser. iPhone menggunakan Safari → Share → Add to Home Screen.</p><button class="btn primary" id="install-app-settings" data-install-app>↓ Install BREWLY</button></div><div style="padding:14px 0"><b style="font-size:13px">Account</b><p id="account-detail" class="muted" style="font-size:12px">Demo account</p><button class="btn" id="logout">Sign out</button></div></div><div class="card"><div class="section-head"><h2>BREWLY</h2></div><p class="muted" style="font-size:12px;line-height:1.8">Coffee shop workspace untuk mengelola pesanan, katalog menu, stok bahan, dan laporan penjualan. Data demo disimpan di browser ini.</p><span class="pill">VERSION 1.0.0</span></div></div></section>
 </main></div>
 <div id="toast" class="toast hidden"></div>
 <script>
@@ -421,6 +429,47 @@ document.getElementById("add-stock").onclick=async()=>{
  save();render();toast("Stok berhasil diperbarui");
 };
 document.getElementById("today").textContent=new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+
+let deferredInstallPrompt = null;
+const installButtons = [...document.querySelectorAll("[data-install-app]")];
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  installButtons.forEach(button => { button.textContent = "↓ Install BREWLY"; });
+});
+window.addEventListener("appinstalled", () => {
+  deferredInstallPrompt = null;
+  installButtons.forEach(button => { button.textContent = "✓ BREWLY terpasang"; button.disabled = true; });
+  toast("BREWLY berhasil dipasang");
+});
+async function installBrewly(){
+  if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true) {
+    toast("BREWLY sudah terpasang di perangkat ini");
+    return;
+  }
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    const result = await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    if (result.outcome === "accepted") toast("BREWLY sedang dipasang");
+    else toast("Instalasi dibatalkan");
+    return;
+  }
+  const userAgent = navigator.userAgent || "";
+  if (/iphone|ipad|ipod/i.test(userAgent)) {
+    toast("Di Safari: tekan Share, lalu Add to Home Screen");
+  } else {
+    toast("Buka menu browser ⋮ lalu pilih Install BREWLY atau Add to Home Screen");
+  }
+}
+installButtons.forEach(button => button.addEventListener("click", installBrewly));
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js", {scope:"./"})
+      .catch(error => console.warn("BREWLY offline support unavailable:", error));
+  });
+}
+
 async function init(){
  if(!supabaseClient)return;
  const {data,error}=await supabaseClient.auth.getSession();
