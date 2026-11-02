@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f5f1e9">
 <title>BREWLY — Coffee House</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 48 48%22%3E%3Crect width=%2248%22 height=%2248%22 rx=%2215%22 fill=%22%2379543d%22/%3E%3Cpath d=%22M26 9C14 12 10 25 16 33s20 5 21-7c1-8-4-14-11-17Z%22 fill=%22none%22 stroke=%22%23fff8ef%22 stroke-width=%223%22/%3E%3Cpath d=%22M19 32 30 15%22 stroke=%22%23fff8ef%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -233,11 +234,35 @@ tbody tr:hover{background:rgba(164,119,88,.07)}
 }
 </style>
 
-</head>
+
+<style id="brewly-dashboard-refresh">
+:root{--bg:#f3eee6;--text:#30251f;--muted:#82756b;--accent:#79543d;--line:rgba(75,54,39,.1)}
+:root[data-theme=dark]{--bg:#171513;--text:#f2e9e0;--muted:#aa9b8e;--accent:#c59a78;--line:rgba(255,255,255,.1)}
+body{background:radial-gradient(ellipse at 14% 0%,rgba(189,146,112,.13),transparent 32%),radial-gradient(ellipse at 92% 85%,rgba(112,78,56,.09),transparent 34%),var(--bg)}
+.app{grid-template-columns:260px minmax(0,1fr)}
+.sidebar{padding:30px 20px;background:rgba(249,246,241,.76);border-right-color:rgba(255,255,255,.8);box-shadow:10px 0 40px rgba(55,39,28,.045);backdrop-filter:blur(30px) saturate(170%);-webkit-backdrop-filter:blur(30px) saturate(170%)}
+:root[data-theme=dark] .sidebar{background:rgba(31,27,24,.82);border-right-color:rgba(255,255,255,.08)}
+.brand{padding-bottom:42px}.brand strong{font-size:23px;letter-spacing:1.7px}.brand-mark{width:43px;height:43px;border-radius:15px;overflow:hidden;background:none!important;box-shadow:0 8px 20px rgba(97,65,45,.18)}.brand-mark.brewly-symbol{display:grid;place-items:center}.brewly-symbol svg{width:100%;height:100%;display:block}
+.eyebrow{margin:10px 0 13px;letter-spacing:1.8px}
+.nav{gap:7px}.nav button{padding:13px 14px;border-radius:13px;font-weight:600;transition:all .2s ease}.nav button.active{background:linear-gradient(110deg,rgba(162,119,87,.17),rgba(255,255,255,.42));box-shadow:inset 0 0 0 1px rgba(255,255,255,.65);color:var(--text)}:root[data-theme=dark] .nav button.active{background:rgba(197,154,120,.14);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.main{max-width:1700px;padding:34px clamp(22px,4vw,64px)}.topbar{margin-bottom:25px}.topbar h1{font-size:32px;letter-spacing:-.5px}.date{font-size:11px;letter-spacing:.35px}.actions{gap:10px}.icon-btn,.btn{border-radius:13px;padding:11px 15px}.card{border-radius:21px;border:1px solid rgba(255,255,255,.72);background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(255,255,255,.45));box-shadow:0 16px 42px rgba(61,43,31,.055),inset 0 1px 0 rgba(255,255,255,.75);backdrop-filter:blur(25px) saturate(155%);-webkit-backdrop-filter:blur(25px) saturate(155%)}:root[data-theme=dark] .card{background:linear-gradient(145deg,rgba(57,49,43,.8),rgba(36,32,29,.77));border-color:rgba(255,255,255,.09);box-shadow:0 16px 42px rgba(0,0,0,.17),inset 0 1px 0 rgba(255,255,255,.05)}
+.welcome-panel{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:25px 28px;margin-bottom:19px;background:linear-gradient(115deg,rgba(255,255,255,.78),rgba(236,222,207,.56));border-radius:23px}.welcome-kicker{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--accent)}.welcome-copy h2{font:700 clamp(22px,2vw,28px) 'Playfair Display',serif;margin:9px 0 5px;letter-spacing:-.4px}.welcome-copy p{font-size:12px;color:var(--muted);margin:0}.welcome-panel .btn{white-space:nowrap}
+:root[data-theme=dark] .welcome-panel{background:linear-gradient(115deg,rgba(70,56,46,.8),rgba(43,37,32,.72))}
+.stats{gap:14px;margin-bottom:18px}.stats .card{padding:19px 21px;min-height:116px}.stat-label{font-size:11px;font-weight:600;letter-spacing:.2px}.stat-value{font-size:26px;margin:9px 0 4px}.stat-note{font-size:10px}
+.content-grid{grid-template-columns:minmax(0,1.5fr) minmax(290px,.85fr);gap:16px}.content-grid>.card{min-width:0}.section-head{gap:12px}.section-head h2{font-size:18px}.section-head span{font-size:10px}.products{gap:12px}.product{border-radius:16px}.product-img{height:132px}.product-body{padding:13px}.product-body h3{font-size:13px}.product-body p{font-size:10px}.order-row{padding:11px 0;font-size:11px}.stock-alert-panel{margin-top:17px;padding:21px 23px}.stock-alerts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.stock-alert-item{padding:12px 14px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.35);font-size:11px;display:flex;align-items:center;justify-content:space-between;gap:8px}.stock-alert-item strong{display:block;font-size:12px}.stock-alert-item small{display:block;color:var(--muted);margin-top:3px}.stock-alert-item.low{border-color:rgba(174,112,72,.24);background:rgba(190,135,91,.09)}.stock-alert-empty{font-size:12px;color:var(--muted);padding:10px 0}
+.status-select{border:1px solid var(--line);border-radius:9px;padding:7px 9px;background:rgba(255,255,255,.55);color:var(--text);font-size:11px;min-width:112px}:root[data-theme=dark] .status-select{background:rgba(255,255,255,.06)}
+.report-heading{margin:5px 0 17px}.report-heading h2{font:700 22px 'Playfair Display',serif;margin:0 0 4px}.report-heading span{font-size:11px;color:var(--muted)}
+#refresh-data{font-size:19px;line-height:1;min-width:42px}
+tbody tr:hover{background:rgba(164,119,88,.055)}
+.login-card .brand-mark{width:49px;height:49px}.google,.btn{cursor:pointer}
+@media(max-width:1050px){.app{grid-template-columns:220px minmax(0,1fr)}.content-grid{grid-template-columns:1fr}.stock-alerts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.app{display:block}.sidebar{padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(249,246,241,.82);backdrop-filter:blur(28px) saturate(175%);-webkit-backdrop-filter:blur(28px) saturate(175%)}:root[data-theme=dark] .sidebar{background:rgba(31,27,24,.88)}.main{padding:20px 14px 106px}.topbar{margin-bottom:18px}.topbar h1{font-size:26px}.welcome-panel{align-items:flex-start;flex-direction:column;padding:20px;margin-bottom:13px}.welcome-panel .btn{width:100%}.stats{gap:9px}.stats .card{padding:14px;min-height:105px}.stat-value{font-size:21px}.products{gap:9px}.product-img{height:108px}.stock-alert-panel{padding:16px;margin-top:12px}.stock-alerts{grid-template-columns:1fr}.report-heading{align-items:flex-start}.report-heading .btn{font-size:11px;padding:10px}.brand,.eyebrow,.side-bottom{display:none}}
+@media(prefers-reduced-motion:reduce){.nav button,.card,.btn{transition:none!important}}
+</style></head>
 <body>
 <div id="login" class="login-screen">
   <div class="card login-card">
-    <div class="brand"><div class="brand-mark">☕</div><strong>BREWLY</strong></div>
+    <div class="brand"><div class="brand-mark brewly-symbol"><svg viewBox='0 0 48 48' role='img' aria-label='BREWLY' xmlns='http://www.w3.org/2000/svg'><rect x='1' y='1' width='46' height='46' rx='15' fill='url(#brewlyLogoBg)'/><path d='M25.8 9.5c-7.5 2.1-13.2 9.9-11.4 17.2 1.5 6.1 7.1 10.7 12.8 10.1 7.4-.8 11.6-8.6 9-16.1-1.7-5-5.5-9.1-10.4-11.2Z' fill='none' stroke='#fff8ef' stroke-width='2.5' stroke-linecap='round'/><path d='M18.7 31.5c5.4-4.2 9-9.5 11.3-16.4' fill='none' stroke='#fff8ef' stroke-width='2.2' stroke-linecap='round'/><path d='M19.7 22.1c2.5.1 4.8 1.2 6.4 3.1M23 16.8c2.6.2 4.8 1.3 6.4 3.2' fill='none' stroke='#fff8ef' stroke-width='1.5' stroke-linecap='round' opacity='.85'/><defs><linearGradient id='brewlyLogoBg' x1='5' y1='4' x2='44' y2='46' gradientUnits='userSpaceOnUse'><stop stop-color='#bd9270'/><stop offset='1' stop-color='#654330'/></linearGradient></defs></svg></div><strong>BREWLY</strong></div>
     <span class="pill">COFFEE HOUSE MANAGEMENT</span>
     <h1>Good coffee.<br>Better days.</h1>
     <p>Kelola menu, pesanan, dan aktivitas coffee shop dalam satu tempat.</p>
@@ -248,7 +273,7 @@ tbody tr:hover{background:rgba(164,119,88,.07)}
 </div>
 <div id="app" class="app hidden">
 <aside class="sidebar">
-  <div class="brand"><div class="brand-mark">☕</div><strong>BREWLY</strong></div>
+  <div class="brand"><div class="brand-mark brewly-symbol"><svg viewBox='0 0 48 48' role='img' aria-label='BREWLY' xmlns='http://www.w3.org/2000/svg'><rect x='1' y='1' width='46' height='46' rx='15' fill='url(#brewlyLogoBg)'/><path d='M25.8 9.5c-7.5 2.1-13.2 9.9-11.4 17.2 1.5 6.1 7.1 10.7 12.8 10.1 7.4-.8 11.6-8.6 9-16.1-1.7-5-5.5-9.1-10.4-11.2Z' fill='none' stroke='#fff8ef' stroke-width='2.5' stroke-linecap='round'/><path d='M18.7 31.5c5.4-4.2 9-9.5 11.3-16.4' fill='none' stroke='#fff8ef' stroke-width='2.2' stroke-linecap='round'/><path d='M19.7 22.1c2.5.1 4.8 1.2 6.4 3.1M23 16.8c2.6.2 4.8 1.3 6.4 3.2' fill='none' stroke='#fff8ef' stroke-width='1.5' stroke-linecap='round' opacity='.85'/><defs><linearGradient id='brewlyLogoBg' x1='5' y1='4' x2='44' y2='46' gradientUnits='userSpaceOnUse'><stop stop-color='#bd9270'/><stop offset='1' stop-color='#654330'/></linearGradient></defs></svg></div><strong>BREWLY</strong></div>
   <div class="eyebrow">WORKSPACE</div>
   <nav class="nav">
     <button class="active" data-page="overview"><span class="ico">⌂</span>Overview</button>
@@ -261,8 +286,9 @@ tbody tr:hover{background:rgba(164,119,88,.07)}
   <div class="side-bottom"><div class="user-mini"><div class="avatar" id="side-avatar">N</div><div><strong id="side-name" style="font-size:12px">Nono</strong><small id="side-email">Demo account</small></div></div></div>
 </aside>
 <main class="main">
-  <header class="topbar"><div><div class="date" id="today"></div><h1 id="page-title">Overview</h1></div><div class="actions"><button class="icon-btn" id="theme-toggle" title="Ganti tema">☾</button><button class="btn" id="profile-btn">Account</button></div></header>
+  <header class="topbar"><div><div class="date" id="today"></div><h1 id="page-title">Overview</h1></div><div class="actions"><button class="icon-btn" id="refresh-data" title="Refresh data">↻</button><button class="icon-btn" id="theme-toggle" title="Ganti tema">☾</button><button class="btn" id="profile-btn">Account</button></div></header>
   <section id="page-overview">
+    <div class="welcome-panel card"><div class="welcome-copy"><span class="welcome-kicker">YOUR COFFEE WORKSPACE</span><h2>Selamat datang, <span id="welcome-name">Nono</span></h2><p>Semua operasional BREWLY, dalam satu tempat.</p></div><button class="btn primary" id="welcome-order">+ Buat pesanan</button></div>
     <div class="grid stats">
       <div class="card"><div class="stat-label">Today's revenue</div><div class="stat-value" id="revenue">Rp 0</div><div class="stat-note">● Ringkasan penjualan</div></div>
       <div class="card"><div class="stat-label">Total orders</div><div class="stat-value" id="order-count">0</div><div class="stat-note">● Pesanan tercatat</div></div>
@@ -270,14 +296,15 @@ tbody tr:hover{background:rgba(164,119,88,.07)}
       <div class="card"><div class="stat-label">Low stock</div><div class="stat-value" id="low-stock">0</div><div class="stat-note">● Perlu diperiksa</div></div>
     </div>
     <div class="grid content-grid">
-      <div class="card"><div class="section-head"><h2>Popular menu</h2><span>QUICK ORDER</span></div><div class="grid products" id="popular-products"></div></div>
-      <div class="card"><div class="section-head"><h2>Recent orders</h2><span>RECENT ACTIVITY</span></div><div class="order-list" id="recent-orders"></div></div>
+      <div class="card"><div class="section-head"><h2>Menu favorit</h2><span>QUICK ORDER</span></div><div class="grid products" id="popular-products"></div></div>
+      <div class="card"><div class="section-head"><h2>Pesanan terbaru</h2><span>AKTIVITAS</span></div><div class="order-list" id="recent-orders"></div></div>
     </div>
+    <div class="card stock-alert-panel"><div class="section-head"><div><h2>Perhatian stok</h2><span>Bahan yang perlu dicek</span></div><span class="pill" id="stock-alert-count">0 item</span></div><div id="stock-alerts" class="stock-alerts"></div></div>
   </section>
   <section id="page-orders" class="hidden"><div class="card"><div class="section-head"><h2>Order management</h2><button class="btn primary" id="new-order">+ New order</button></div><div class="table-wrap"><table><thead><tr><th>ORDER</th><th>ITEMS</th><th>TOTAL</th><th>STATUS</th><th>DATE</th></tr></thead><tbody id="orders-table"></tbody></table></div></div></section>
   <section id="page-menu" class="hidden"><div class="card"><div class="section-head"><h2>Menu management</h2><button class="btn primary" id="add-menu">+ Add item</button></div><div class="table-wrap"><table><thead><tr><th>PRODUCT</th><th>CATEGORY</th><th>PRICE</th><th>AVAILABILITY</th></tr></thead><tbody id="menu-table"></tbody></table></div></div></section>
   <section id="page-inventory" class="hidden"><div class="card"><div class="section-head"><h2>Inventory</h2><button class="btn primary" id="add-stock">+ Add stock</button></div><div class="table-wrap"><table><thead><tr><th>INGREDIENT</th><th>STOCK</th><th>UNIT</th><th>STATUS</th></tr></thead><tbody id="inventory-table"></tbody></table></div></div></section>
-  <section id="page-reports" class="hidden"><div class="grid stats"><div class="card"><div class="stat-label">All-time revenue</div><div class="stat-value" id="all-revenue">Rp 0</div></div><div class="card"><div class="stat-label">Completed orders</div><div class="stat-value" id="completed-count">0</div></div></div><div class="card"><div class="section-head"><h2>Sales summary</h2><span>ALL RECORDED TRANSACTIONS</span></div><div id="report-summary" class="empty">Belum ada transaksi.</div></div></section>
+  <section id="page-reports" class="hidden"><div class="section-head report-heading"><div><h2>Laporan penjualan</h2><span>Ringkasan transaksi BREWLY</span></div><button class="btn primary" id="export-report">↓ Ekspor CSV</button></div><div class="grid stats"><div class="card"><div class="stat-label">All-time revenue</div><div class="stat-value" id="all-revenue">Rp 0</div></div><div class="card"><div class="stat-label">Completed orders</div><div class="stat-value" id="completed-count">0</div></div></div><div class="card"><div class="section-head"><h2>Sales summary</h2><span>ALL RECORDED TRANSACTIONS</span></div><div id="report-summary" class="empty">Belum ada transaksi.</div></div></section>
   <section id="page-settings" class="hidden"><div class="grid content-grid"><div class="card"><div class="section-head"><h2>Preferences</h2></div><p class="muted" style="font-size:12px">Atur tampilan aplikasi.</p><div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)"><div><b style="font-size:13px">Appearance</b><div class="muted" style="font-size:11px;margin-top:4px">Pilih mode terang atau gelap</div></div><button class="btn" id="settings-theme">Switch theme</button></div><div style="padding:14px 0"><b style="font-size:13px">Account</b><p id="account-detail" class="muted" style="font-size:12px">Demo account</p><button class="btn" id="logout">Sign out</button></div></div><div class="card"><div class="section-head"><h2>BREWLY</h2></div><p class="muted" style="font-size:12px;line-height:1.8">Coffee shop workspace untuk mengelola pesanan, katalog menu, stok bahan, dan laporan penjualan. Data demo disimpan di browser ini.</p><span class="pill">VERSION 1.0.0</span></div></div></section>
 </main></div>
 <div id="toast" class="toast hidden"></div>
@@ -305,7 +332,7 @@ function setTheme(theme){document.documentElement.dataset.theme=theme;localStora
 function toggleTheme(){setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark")}
 setTheme(localStorage.getItem("brewly-theme")||"light");
 document.getElementById("theme-toggle").onclick=toggleTheme;document.getElementById("settings-theme").onclick=toggleTheme;
-function showApp(user){currentUser=user;document.getElementById("login").classList.add("hidden");document.getElementById("app").classList.remove("hidden");const name=user?.user_metadata?.full_name||user?.user_metadata?.name||"Nono";const email=user?.email||"Demo account";document.getElementById("side-name").textContent=name;document.getElementById("side-email").textContent=email;document.getElementById("account-detail").textContent=email;const avatar=user?.user_metadata?.avatar_url||user?.user_metadata?.picture;if(avatar)document.getElementById("side-avatar").innerHTML='<img src="'+avatar+'" alt="Profile">';else document.getElementById("side-avatar").textContent=name.charAt(0).toUpperCase();document.getElementById("today").textContent=new Intl.DateTimeFormat("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date());render()}
+function showApp(user){currentUser=user;document.getElementById("welcome-name").textContent=(user?.user_metadata?.full_name||user?.user_metadata?.name||"Nono").split(" ")[0];document.getElementById("login").classList.add("hidden");document.getElementById("app").classList.remove("hidden");const name=user?.user_metadata?.full_name||user?.user_metadata?.name||"Nono";const email=user?.email||"Demo account";document.getElementById("side-name").textContent=name;document.getElementById("side-email").textContent=email;document.getElementById("account-detail").textContent=email;const avatar=user?.user_metadata?.avatar_url||user?.user_metadata?.picture;if(avatar)document.getElementById("side-avatar").innerHTML='<img src="'+avatar+'" alt="Profile">';else document.getElementById("side-avatar").textContent=name.charAt(0).toUpperCase();document.getElementById("today").textContent=new Intl.DateTimeFormat("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date());render()}
 async function loginGoogle(){if(!supabaseClient){toast("Isi URL dan key Supabase dulu. Mode demo masih tersedia.");return}const {error}=await supabaseClient.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname,queryParams:{access_type:"offline",prompt:"select_account"}}});if(error)toast(error.message)}
 document.getElementById("google-login").onclick=loginGoogle;
 document.getElementById("demo-login").onclick=()=>{demoMode=true;showApp({email:"demo@brewly.local",user_metadata:{name:"Nono"}})};
@@ -337,9 +364,13 @@ function render(){
  document.getElementById("popular-products").innerHTML=products.filter(p=>p.is_available!==false).map(p=>'<div class="card product"><div class="product-img"><img src="'+p.image+'" alt="'+p.name+'" loading="lazy"></div><div class="product-body"><h3>'+p.name+'</h3><p>'+p.desc+'</p><div class="product-foot"><span>'+money(p.price)+'</span><button class="add" data-add="'+p.id+'">+</button></div></div></div>').join("");
  document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>createOrder(b.dataset.add));
  document.getElementById("recent-orders").innerHTML=orders.slice(0,5).map(o=>'<div class="order-row"><div><b>'+o.id+'</b><div class="muted" style="margin-top:4px">'+o.item+'</div></div><div style="text-align:right"><b>'+money(o.total)+'</b><div style="margin-top:4px"><span class="pill">'+o.status+'</span></div></div></div>').join("")||'<div class="empty">Belum ada pesanan.</div>';
- document.getElementById("orders-table").innerHTML=orders.map(o=>'<tr><td>'+o.id+'</td><td>'+o.item+'</td><td>'+money(o.total)+'</td><td><span class="pill">'+o.status+'</span></td><td>'+new Date(o.date).toLocaleString("id-ID")+'</td></tr>').join("")||'<tr><td colspan="5" class="empty">Belum ada transaksi.</td></tr>';
+ document.getElementById("orders-table").innerHTML=orders.map(o=>'<tr><td>'+o.id+'</td><td>'+o.item+'</td><td>'+money(o.total)+'</td><td><select class="status-select" data-order-number="'+o.id+'"><option value="pending" '+(String(o.status).toLowerCase()==="pending"?"selected":"")+'>Pending</option><option value="processing" '+(String(o.status).toLowerCase()==="processing"?"selected":"")+'>Processing</option><option value="completed" '+(["completed"].includes(String(o.status).toLowerCase())?"selected":"")+'>Completed</option><option value="cancelled" '+(String(o.status).toLowerCase()==="cancelled"?"selected":"")+'>Cancelled</option></select></td><td>'+new Date(o.date).toLocaleString("id-ID")+'</td></tr>').join("")||'<tr><td colspan="5" class="empty">Belum ada transaksi.</td></tr>';
+ document.querySelectorAll(".status-select").forEach(el=>el.onchange=()=>updateOrderStatus(el.dataset.orderNumber,el.value));
  document.getElementById("menu-table").innerHTML=products.map(p=>'<tr><td><b>'+p.name+'</b></td><td>'+p.category+'</td><td>'+money(p.price)+'</td><td><span class="pill">'+(p.is_available===false?"Unavailable":"Available")+'</span></td></tr>').join("");
  document.getElementById("inventory-table").innerHTML=stock.map(s=>'<tr><td><b>'+s.name+'</b></td><td>'+s.qty+'</td><td>'+s.unit+'</td><td><span class="pill">'+(s.qty<=2?"Low stock":"In stock")+'</span></td></tr>').join("");
+ const lowItems=stock.filter(s=>s.qty<=2);
+ document.getElementById("stock-alert-count").textContent=lowItems.length+" item";
+ document.getElementById("stock-alerts").innerHTML=lowItems.length?lowItems.map(s=>'<div class="stock-alert-item low"><div><strong>'+s.name+'</strong><small>Stok tersisa: '+s.qty+' '+s.unit+'</small></div><span class="pill">Low</span></div>').join(""):'<div class="stock-alert-empty">Semua stok masih dalam batas aman.</div>';
  document.getElementById("all-revenue").textContent=money(orders.reduce((s,o)=>s+o.total,0));document.getElementById("completed-count").textContent=orders.filter(o=>o.status==="Completed"||o.status==="completed").length;document.getElementById("report-summary").textContent=orders.length?orders.length+" transaksi tercatat dengan total penjualan "+money(orders.reduce((s,o)=>s+o.total,0))+".":"Belum ada transaksi.";
 }
 async function createOrder(id){
@@ -354,6 +385,25 @@ async function createOrder(id){
  }else{orders.unshift({id:orderNo,item:p.name,total:p.price,status:"Completed",date});save()}
  render();toast(p.name+" berhasil ditambahkan ke pesanan");
 }
+async function updateOrderStatus(orderNumber,newStatus){
+ const order=orders.find(o=>String(o.id)===String(orderNumber));if(!order)return;
+ const previous=order.status;order.status=newStatus==="completed"?"Completed":newStatus;
+ if(supabaseClient&&!demoMode&&order.dbId){
+  const {error}=await supabaseClient.from("orders").update({status:newStatus}).eq("id",order.dbId);
+  if(error){order.status=previous;render();toast("Status gagal diperbarui: "+error.message);return}
+ }else save();
+ render();toast("Status pesanan diperbarui");
+}
+function exportOrdersCSV(){
+ if(!orders.length){toast("Belum ada transaksi untuk diekspor");return}
+ const rows=[["Order","Items","Total (IDR)","Status","Date"],...orders.map(o=>[o.id,o.item,o.total,o.status,new Date(o.date).toLocaleString("id-ID")])];
+ const csv=rows.map(row=>row.map(value=>'"'+String(value??"").replace(/"/g,'""')+'"').join(",")).join("\r\n");
+ const blob=new Blob(["\\uFEFF",csv],{type:"text/csv;charset=utf-8"});
+ const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="brewly-sales-"+new Date().toISOString().slice(0,10)+".csv";a.click();URL.revokeObjectURL(url);toast("Laporan CSV berhasil diekspor");
+}
+document.getElementById("welcome-order").onclick=()=>document.getElementById("new-order").click();
+document.getElementById("export-report").onclick=exportOrdersCSV;
+document.getElementById("refresh-data").onclick=async()=>{if(supabaseClient&&!demoMode){await loadWorkspaceData();toast("Data berhasil diperbarui")}else{render();toast("Dashboard diperbarui")}};
 document.getElementById("new-order").onclick=()=>{if(!products.length)return;const choice=prompt("Masukkan nomor menu:\n"+products.map((p,i)=>(i+1)+". "+p.name+" - "+money(p.price)).join("\n"));const p=products[Number(choice)-1];if(p)createOrder(p.id)};
 document.getElementById("add-menu").onclick=async()=>{
  const name=prompt("Nama menu");if(!name)return;const price=Number(prompt("Harga (angka, contoh 28000)"));if(!Number.isFinite(price)||price<=0)return toast("Harga tidak valid");const category=prompt("Kategori (Coffee / Non Coffee / Bakery)")||"Other";const description=prompt("Deskripsi menu")||"";
@@ -362,10 +412,13 @@ document.getElementById("add-menu").onclick=async()=>{
  render();toast("Menu berhasil ditambahkan");
 };
 document.getElementById("add-stock").onclick=async()=>{
- const name=prompt("Nama bahan");if(!name)return;const qty=Number(prompt("Jumlah stok"));if(!Number.isFinite(qty)||qty<0)return;const unit=prompt("Satuan (kg, L, pcs)")||"pcs";
- if(supabaseClient&&!demoMode){const {data,error}=await supabaseClient.from("inventory").insert({name,quantity:qty,unit}).select().single();if(error)return toast("Gagal tambah stok: "+error.message);stock.push({id:data.id,name,qty,unit})}
- else stock.push({id:Date.now(),name,qty,unit});
- save();render();toast("Stok berhasil ditambahkan");
+ const name=prompt("Nama bahan");if(!name)return;const qty=Number(prompt("Jumlah tambahan stok"));if(!Number.isFinite(qty)||qty<=0)return toast("Jumlah stok tidak valid");const unit=prompt("Satuan (kg, L, pcs)")||"pcs";
+ const existing=stock.find(s=>s.name.toLowerCase()===name.trim().toLowerCase());
+ if(supabaseClient&&!demoMode){
+  if(existing){const nextQty=existing.qty+qty;const {error}=await supabaseClient.from("inventory").update({quantity:nextQty,unit}).eq("id",existing.id);if(error)return toast("Gagal restock: "+error.message);existing.qty=nextQty;existing.unit=unit}
+  else{const {data,error}=await supabaseClient.from("inventory").insert({name:name.trim(),quantity:qty,unit}).select().single();if(error)return toast("Gagal tambah stok: "+error.message);stock.push({id:data.id,name:name.trim(),qty,unit})}
+ }else if(existing){existing.qty+=qty;existing.unit=unit}else stock.push({id:Date.now(),name:name.trim(),qty,unit});
+ save();render();toast("Stok berhasil diperbarui");
 };
 document.getElementById("today").textContent=new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
 async function init(){
