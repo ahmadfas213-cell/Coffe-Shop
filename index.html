@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f5f1e9">
+<title>BREWLY — Coffee House</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{color-scheme:light;--bg:#f5f1e9;--panel:rgba(255,255,255,.72);--panel-solid:#fffdf8;--text:#30251f;--muted:#887a70;--line:rgba(83,61,47,.12);--accent:#754b35;--accent-2:#a47758;--soft:#eee5d9;--green:#607c62;--shadow:0 12px 36px rgba(66,45,30,.07)}
+:root[data-theme=dark]{color-scheme:dark;--bg:#191715;--panel:rgba(42,37,33,.82);--panel-solid:#25211e;--text:#f1e9df;--muted:#aa9b8e;--line:rgba(235,220,203,.12);--accent:#c89b78;--accent-2:#dfb18a;--soft:#352d27;--green:#9ab39a;--shadow:0 12px 36px rgba(0,0,0,.22)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;transition:background .2s,color .2s}button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:248px 1fr}.sidebar{padding:28px 18px;border-right:1px solid var(--line);background:var(--panel);backdrop-filter:blur(18px);position:sticky;top:0;height:100vh;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:11px;padding:0 12px 34px}.brand-mark{width:38px;height:38px;border-radius:13px;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:20px}.brand strong{font:700 22px 'Playfair Display',serif;letter-spacing:.4px}.eyebrow{font-size:10px;letter-spacing:1.6px;color:var(--muted);font-weight:700;padding:0 12px;margin:12px 0}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:var(--muted);text-align:left;padding:12px;border-radius:11px;display:flex;gap:12px;align-items:center;font-size:13px}.nav button.active,.nav button:hover{background:var(--soft);color:var(--text)}.nav .ico{width:18px;text-align:center;font-size:16px}.side-bottom{margin-top:auto}.user-mini{border-top:1px solid var(--line);padding:17px 8px 0;display:flex;align-items:center;gap:10px}.avatar{width:34px;height:34px;border-radius:50%;background:var(--soft);display:grid;place-items:center;overflow:hidden;font-weight:700;color:var(--accent)}.avatar img{width:100%;height:100%;object-fit:cover}.user-mini small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.main{padding:30px clamp(18px,4vw,54px);max-width:1600px;width:100%;margin:auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:30px}.date{color:var(--muted);font-size:12px}.topbar h1{font:700 clamp(25px,3vw,34px) 'Playfair Display',serif;margin:5px 0}.actions{display:flex;gap:9px;align-items:center}.icon-btn,.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:11px;padding:10px 13px}.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}.btn:disabled{opacity:.45;cursor:not-allowed}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:22px}.card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:20px;box-shadow:var(--shadow);backdrop-filter:blur(16px)}.stat-label{font-size:12px;color:var(--muted)}.stat-value{font:700 27px 'Playfair Display',serif;margin:11px 0 5px}.stat-note{font-size:11px;color:var(--green)}.content-grid{grid-template-columns:minmax(0,1.5fr) minmax(260px,.8fr)}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.section-head h2{font:700 20px 'Playfair Display',serif;margin:0}.section-head span{font-size:11px;color:var(--muted)}.products{grid-template-columns:repeat(3,minmax(0,1fr))}.product{overflow:hidden;padding:0}.product-img{height:142px;background:var(--soft);position:relative}.product-img img{width:100%;height:100%;object-fit:cover}.product-body{padding:14px}.product-body h3{font-size:14px;margin:0 0 5px}.product-body p{font-size:11px;color:var(--muted);margin:0 0 13px;min-height:28px}.product-foot{display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:13px}.add{border:0;background:var(--soft);color:var(--accent);border-radius:9px;width:30px;height:30px;font-size:18px}.order-list{display:grid;gap:12px}.order-row{display:flex;justify-content:space-between;gap:12px;font-size:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}.order-row:last-child{border:0}.muted{color:var(--muted)}.pill{font-size:10px;background:var(--soft);color:var(--accent);padding:5px 8px;border-radius:20px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.field{background:var(--panel-solid);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px 12px;min-width:180px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-weight:600}.empty{padding:30px;text-align:center;color:var(--muted);font-size:13px}.hidden{display:none!important}.toast{position:fixed;bottom:22px;right:22px;background:var(--text);color:var(--bg);padding:12px 16px;border-radius:11px;font-size:12px;box-shadow:var(--shadow);z-index:10}.login-screen{min-height:100vh;display:grid;place-items:center;padding:20px;background:var(--bg)}.login-card{max-width:430px;width:100%;text-align:center;padding:42px 34px}.login-card .brand{justify-content:center;padding:0 0 22px}.login-card h1{font:700 30px 'Playfair Display',serif;margin:10px 0}.login-card p{color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:25px}.google{width:100%;display:flex;justify-content:center;gap:12px;align-items:center;padding:13px;border:1px solid var(--line);border-radius:11px;background:var(--panel-solid);color:var(--text);font-weight:600}.google b{font-size:18px;color:#4285f4}.demo{font-size:11px;color:var(--muted);margin-top:18px}.mobile-head{display:none}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.products{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.app{display:block}.sidebar{position:fixed;z-index:5;top:auto;bottom:0;left:0;right:0;height:auto;padding:8px 10px calc(8px + env(safe-area-inset-bottom));border-right:0;border-top:1px solid var(--line);display:block}.brand,.eyebrow,.side-bottom{display:none}.nav{display:flex;justify-content:space-around;gap:2px}.nav button{flex-direction:column;gap:3px;padding:8px 5px;font-size:9px;flex:1;text-align:center}.nav .ico{font-size:17px}.main{padding:22px 15px 100px}.topbar{align-items:flex-start}.topbar h1{font-size:26px}.stats{gap:10px}.card{padding:15px}.stat-value{font-size:23px}.content-grid{grid-template-columns:1fr}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-img{height:112px}.product-body{padding:11px}.product-body h3{font-size:12px}.product-body p{font-size:10px}.actions .btn{padding:9px}.topbar .date{font-size:10px}}
+</style>
+</head>
+<body>
+<div id="login" class="login-screen">
+  <div class="card login-card">
+    <div class="brand"><div class="brand-mark">☕</div><strong>BREWLY</strong></div>
+    <span class="pill">COFFEE HOUSE MANAGEMENT</span>
+    <h1>Good coffee.<br>Better days.</h1>
+    <p>Kelola menu, pesanan, dan aktivitas coffee shop dalam satu tempat.</p>
+    <button id="google-login" class="google"><b>G</b> Continue with Google</button>
+    <div class="demo">Mode demo tersedia sebelum Supabase dikonfigurasi.</div>
+    <button id="demo-login" class="btn" style="margin-top:12px;width:100%">Masuk sebagai demo</button>
+  </div>
+</div>
+<div id="app" class="app hidden">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">☕</div><strong>BREWLY</strong></div>
+  <div class="eyebrow">WORKSPACE</div>
+  <nav class="nav">
+    <button class="active" data-page="overview"><span class="ico">⌂</span>Overview</button>
+    <button data-page="orders"><span class="ico">▤</span>Orders</button>
+    <button data-page="menu"><span class="ico">☕</span>Menu</button>
+    <button data-page="inventory"><span class="ico">▦</span>Inventory</button>
+    <button data-page="reports"><span class="ico">▥</span>Reports</button>
+    <button data-page="settings"><span class="ico">⚙</span>Settings</button>
+  </nav>
+  <div class="side-bottom"><div class="user-mini"><div class="avatar" id="side-avatar">N</div><div><strong id="side-name" style="font-size:12px">Nono</strong><small id="side-email">Demo account</small></div></div></div>
+</aside>
+<main class="main">
+  <header class="topbar"><div><div class="date" id="today"></div><h1 id="page-title">Overview</h1></div><div class="actions"><button class="icon-btn" id="theme-toggle" title="Ganti tema">☾</button><button class="btn" id="profile-btn">Account</button></div></header>
+  <section id="page-overview">
+    <div class="grid stats">
+      <div class="card"><div class="stat-label">Today's revenue</div><div class="stat-value" id="revenue">Rp 0</div><div class="stat-note">● Ringkasan penjualan</div></div>
+      <div class="card"><div class="stat-label">Total orders</div><div class="stat-value" id="order-count">0</div><div class="stat-note">● Pesanan tercatat</div></div>
+      <div class="card"><div class="stat-label">Menu items</div><div class="stat-value" id="menu-count">6</div><div class="stat-note">● Produk tersedia</div></div>
+      <div class="card"><div class="stat-label">Low stock</div><div class="stat-value" id="low-stock">0</div><div class="stat-note">● Perlu diperiksa</div></div>
+    </div>
+    <div class="grid content-grid">
+      <div class="card"><div class="section-head"><h2>Popular menu</h2><span>QUICK ORDER</span></div><div class="grid products" id="popular-products"></div></div>
+      <div class="card"><div class="section-head"><h2>Recent orders</h2><span>RECENT ACTIVITY</span></div><div class="order-list" id="recent-orders"></div></div>
+    </div>
+  </section>
+  <section id="page-orders" class="hidden"><div class="card"><div class="section-head"><h2>Order management</h2><button class="btn primary" id="new-order">+ New order</button></div><div class="table-wrap"><table><thead><tr><th>ORDER</th><th>ITEMS</th><th>TOTAL</th><th>STATUS</th><th>DATE</th></tr></thead><tbody id="orders-table"></tbody></table></div></div></section>
+  <section id="page-menu" class="hidden"><div class="card"><div class="section-head"><h2>Menu management</h2><button class="btn primary" id="add-menu">+ Add item</button></div><div class="table-wrap"><table><thead><tr><th>PRODUCT</th><th>CATEGORY</th><th>PRICE</th><th>AVAILABILITY</th></tr></thead><tbody id="menu-table"></tbody></table></div></div></section>
+  <section id="page-inventory" class="hidden"><div class="card"><div class="section-head"><h2>Inventory</h2><button class="btn primary" id="add-stock">+ Add stock</button></div><div class="table-wrap"><table><thead><tr><th>INGREDIENT</th><th>STOCK</th><th>UNIT</th><th>STATUS</th></tr></thead><tbody id="inventory-table"></tbody></table></div></div></section>
+  <section id="page-reports" class="hidden"><div class="grid stats"><div class="card"><div class="stat-label">All-time revenue</div><div class="stat-value" id="all-revenue">Rp 0</div></div><div class="card"><div class="stat-label">Completed orders</div><div class="stat-value" id="completed-count">0</div></div></div><div class="card"><div class="section-head"><h2>Sales summary</h2><span>ALL RECORDED TRANSACTIONS</span></div><div id="report-summary" class="empty">Belum ada transaksi.</div></div></section>
+  <section id="page-settings" class="hidden"><div class="grid content-grid"><div class="card"><div class="section-head"><h2>Preferences</h2></div><p class="muted" style="font-size:12px">Atur tampilan aplikasi.</p><div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)"><div><b style="font-size:13px">Appearance</b><div class="muted" style="font-size:11px;margin-top:4px">Pilih mode terang atau gelap</div></div><button class="btn" id="settings-theme">Switch theme</button></div><div style="padding:14px 0"><b style="font-size:13px">Account</b><p id="account-detail" class="muted" style="font-size:12px">Demo account</p><button class="btn" id="logout">Sign out</button></div></div><div class="card"><div class="section-head"><h2>BREWLY</h2></div><p class="muted" style="font-size:12px;line-height:1.8">Coffee shop workspace untuk mengelola pesanan, katalog menu, stok bahan, dan laporan penjualan. Data demo disimpan di browser ini.</p><span class="pill">VERSION 1.0.0</span></div></div></section>
+</main></div>
+<div id="toast" class="toast hidden"></div>
+<script>
+const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_");
+let supabase = configured && window.supabase ? window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY) : null;
+let currentUser = null;
+const products = [
+{id:1,name:"Brown Sugar Latte",category:"Coffee",price:32000,desc:"Espresso, milk, brown sugar",image:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=700&q=85"},
+{id:2,name:"Iced Americano",category:"Coffee",price:24000,desc:"Double espresso, cold water",image:"https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=700&q=85"},
+{id:3,name:"Cappuccino",category:"Coffee",price:28000,desc:"Espresso with silky milk foam",image:"https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=700&q=85"},
+{id:4,name:"Matcha Latte",category:"Non Coffee",price:30000,desc:"Japanese matcha, fresh milk",image:"https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=700&q=85"},
+{id:5,name:"Cafe Mocha",category:"Coffee",price:33000,desc:"Espresso, chocolate, milk",image:"https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=700&q=85"},
+{id:6,name:"Butter Croissant",category:"Bakery",price:22000,desc:"Flaky, buttery, freshly baked",image:"https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=700&q=85"}
+];
+let orders = JSON.parse(localStorage.getItem("brewly-orders")||"[]");
+let stock = JSON.parse(localStorage.getItem("brewly-stock")||'[{"name":"Coffee beans","qty":4,"unit":"kg"},{"name":"Fresh milk","qty":8,"unit":"L"},{"name":"Matcha powder","qty":1,"unit":"kg"},{"name":"Paper cups","qty":120,"unit":"pcs"}]');
+const money = n => new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n);
+const save = () => {localStorage.setItem("brewly-orders",JSON.stringify(orders));localStorage.setItem("brewly-stock",JSON.stringify(stock));};
+function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.remove("hidden");setTimeout(()=>el.classList.add("hidden"),2400)}
+function setTheme(theme){document.documentElement.dataset.theme=theme;localStorage.setItem("brewly-theme",theme);document.getElementById("theme-toggle").textContent=theme==="dark"?"☀":"☾"}
+function toggleTheme(){setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark")}
+setTheme(localStorage.getItem("brewly-theme")||"light");
+document.getElementById("theme-toggle").onclick=toggleTheme;document.getElementById("settings-theme").onclick=toggleTheme;
+function showApp(user){currentUser=user;document.getElementById("login").classList.add("hidden");document.getElementById("app").classList.remove("hidden");const name=user?.user_metadata?.full_name||user?.user_metadata?.name||"Nono";const email=user?.email||"Demo account";document.getElementById("side-name").textContent=name;document.getElementById("side-email").textContent=email;document.getElementById("account-detail").textContent=email;const avatar=user?.user_metadata?.avatar_url||user?.user_metadata?.picture;if(avatar)document.getElementById("side-avatar").innerHTML='<img src="'+avatar+'" alt="Profile">';else document.getElementById("side-avatar").textContent=name.charAt(0).toUpperCase();render();document.getElementById("today").textContent=new Intl.DateTimeFormat("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date())}
+async function loginGoogle(){if(!supabase){toast("Supabase belum dikonfigurasi. Gunakan mode demo.");return}const {error}=await supabase.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}});if(error)toast(error.message)}
+document.getElementById("google-login").onclick=loginGoogle;
+document.getElementById("demo-login").onclick=()=>showApp({email:"demo@brewly.local",user_metadata:{name:"Nono"}});
+async function logout(){if(supabase)await supabase.auth.signOut();currentUser=null;document.getElementById("app").classList.add("hidden");document.getElementById("login").classList.remove("hidden")}
+document.getElementById("logout").onclick=logout;document.getElementById("profile-btn").onclick=()=>{navigate("settings")};
+function navigate(page){document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));document.getElementById("page-"+page).classList.remove("hidden");document.getElementById("page-title").textContent=page.charAt(0).toUpperCase()+page.slice(1)}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>navigate(b.dataset.page));
+function render(){const today=new Date().toDateString();const todayOrders=orders.filter(o=>new Date(o.date).toDateString()===today);const revenue=todayOrders.reduce((s,o)=>s+o.total,0);document.getElementById("revenue").textContent=money(revenue);document.getElementById("order-count").textContent=todayOrders.length;document.getElementById("menu-count").textContent=products.length;document.getElementById("low-stock").textContent=stock.filter(s=>s.qty<=2).length;
+document.getElementById("popular-products").innerHTML=products.map(p=>'<div class="card product"><div class="product-img"><img src="'+p.image+'" alt="'+p.name+'" loading="lazy"></div><div class="product-body"><h3>'+p.name+'</h3><p>'+p.desc+'</p><div class="product-foot"><span>'+money(p.price)+'</span><button class="add" data-add="'+p.id+'">+</button></div></div></div>').join("");
+document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>createOrder(Number(b.dataset.add)));
+document.getElementById("recent-orders").innerHTML=orders.slice(-5).reverse().map(o=>'<div class="order-row"><div><b>'+o.id+'</b><div class="muted" style="margin-top:4px">'+o.item+'</div></div><div style="text-align:right"><b>'+money(o.total)+'</b><div style="margin-top:4px"><span class="pill">'+o.status+'</span></div></div></div>').join("")||'<div class="empty">Belum ada pesanan.</div>';
+document.getElementById("orders-table").innerHTML=orders.slice().reverse().map(o=>'<tr><td>'+o.id+'</td><td>'+o.item+'</td><td>'+money(o.total)+'</td><td><span class="pill">'+o.status+'</span></td><td>'+new Date(o.date).toLocaleString("id-ID")+'</td></tr>').join("")||'<tr><td colspan="5" class="empty">Belum ada transaksi.</td></tr>';
+document.getElementById("menu-table").innerHTML=products.map(p=>'<tr><td><b>'+p.name+'</b></td><td>'+p.category+'</td><td>'+money(p.price)+'</td><td><span class="pill">Available</span></td></tr>').join("");
+document.getElementById("inventory-table").innerHTML=stock.map(s=>'<tr><td><b>'+s.name+'</b></td><td>'+s.qty+'</td><td>'+s.unit+'</td><td><span class="pill">'+(s.qty<=2?"Low stock":"In stock")+'</span></td></tr>').join("");
+document.getElementById("all-revenue").textContent=money(orders.reduce((s,o)=>s+o.total,0));document.getElementById("completed-count").textContent=orders.filter(o=>o.status==="Completed").length;document.getElementById("report-summary").textContent=orders.length?orders.length+" transaksi tercatat dengan total penjualan "+money(orders.reduce((s,o)=>s+o.total,0))+".":"Belum ada transaksi."}
+function createOrder(id){const p=products.find(x=>x.id===id);const order={id:"BW-"+String(Date.now()).slice(-6),item:p.name,total:p.price,status:"Completed",date:new Date().toISOString()};orders.push(order);save();render();toast(p.name+" berhasil ditambahkan ke pesanan")}
+document.getElementById("new-order").onclick=()=>{const choice=prompt("Masukkan nomor menu:\n"+products.map(p=>p.id+". "+p.name+" - "+money(p.price)).join("\n"));if(choice&&products.some(p=>p.id===Number(choice)))createOrder(Number(choice))};
+document.getElementById("add-menu").onclick=()=>toast("Pengelolaan katalog lanjutan akan tersambung ke database Supabase.");
+document.getElementById("add-stock").onclick=()=>{const name=prompt("Nama bahan");if(!name)return;const qty=Number(prompt("Jumlah stok"));if(!Number.isFinite(qty)||qty<0)return;const unit=prompt("Satuan (kg, L, pcs)")||"pcs";stock.push({name,qty,unit});save();render();toast("Stok berhasil ditambahkan")};
+document.getElementById("today").textContent=new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+if(supabase){supabase.auth.getSession().then(({data})=>{if(data.session)showApp(data.session.user)});supabase.auth.onAuthStateChange((_event,session)=>{if(session)showApp(session.user)})}
+</script>
+</body>
+</html>
