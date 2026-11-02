@@ -5,33 +5,62 @@ Coffee shop management app dengan dashboard, menu, order, inventory, sales repor
 ## Stack
 - HTML, CSS, JavaScript
 - Supabase Auth untuk Google OAuth
-- Supabase Postgres untuk database (schema tersedia di `supabase/schema.sql`)
-- Bisa di-host sebagai static site, termasuk GitHub Pages
+- Supabase Postgres untuk data produk, transaksi, item pesanan, profil, dan stok
+- GitHub Pages untuk hosting frontend
 
-## Menjalankan
-Buka `index.html` melalui local server, bukan file://. Contoh:
+## Setup Supabase
+
+1. Buat project baru di [Supabase](https://supabase.com/dashboard).
+2. Tunggu project selesai dibuat.
+3. Buka SQL Editor di dashboard Supabase.
+4. Salin seluruh isi file `supabase/schema.sql`, tempel ke SQL Editor, lalu klik Run.
+5. Buka Project Settings > API. Salin Project URL dan publishable key (atau anon key lama).
+6. Di `index.html`, ganti:
+   - `YOUR_SUPABASE_PROJECT_URL` dengan Project URL.
+   - `YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY` dengan publishable/anon key.
+7. Commit perubahan tersebut ke branch `main`.
+
+Publishable/anon key memang boleh dipakai di frontend jika Row Level Security aktif dan policy database benar. Jangan pernah menaruh service_role key di frontend atau repository publik.
+
+## Setup Google Login
+
+1. Di Supabase, buka Authentication > Sign In / Providers > Google. Aktifkan Google provider dan salin callback URL yang disediakan Supabase. Bentuknya seperti `https://<project-ref>.supabase.co/auth/v1/callback`.
+2. Buka [Google Cloud Console](https://console.cloud.google.com/). Buat atau pilih project.
+3. Masuk ke Google Auth Platform / Clients, buat OAuth Client ID dengan tipe Web application.
+4. Pada Authorized JavaScript origins tambahkan:
+   - `https://ahmadfas213-cell.github.io`
+   - `http://localhost:5500` (untuk pengujian lokal)
+5. Pada Authorized redirect URIs masukkan callback URL dari Supabase, bukan URL GitHub Pages.
+6. Salin Google Client ID dan Client Secret ke pengaturan Google provider di Supabase, lalu simpan.
+7. Di Supabase, buka Authentication > URL Configuration. Atur Site URL ke `https://ahmadfas213-cell.github.io/Coffe-Shop/` dan tambahkan URL itu ke Redirect URLs. Untuk lokal, tambahkan `http://localhost:5500/**`.
+
+Jangan commit Google Client Secret ke GitHub. Secret hanya dimasukkan ke dashboard Supabase.
+
+## Menjalankan lokal
+
+Jalankan local server dari folder project:
 
 ```bash
 python -m http.server 5500
 ```
 
-Lalu buka http://localhost:5500.
+Buka `http://localhost:5500`.
 
-## Mengaktifkan Google Login
-1. Buat project di Supabase.
-2. Buka Authentication > Providers > Google, lalu aktifkan Google provider.
-3. Buat OAuth Client ID di Google Cloud Console. Tambahkan callback URL Supabase yang ditampilkan di halaman provider Google.
-4. Masukkan Client ID dan Client Secret ke konfigurasi Google provider di Supabase.
-5. Buka Authentication > URL Configuration. Tambahkan URL localhost dan URL deployment ke Site URL / Redirect URLs.
-6. Di `index.html`, ganti `YOUR_SUPABASE_PROJECT_URL` dengan Project URL dan `YOUR_SUPABASE_ANON_KEY` dengan publishable/anon key dari Supabase.
+## Deploy GitHub Pages
 
-Jangan pernah memasukkan Supabase service-role key ke frontend atau repository publik.
+Workflow tersedia di `.github/workflows/deploy.yml` dan berjalan saat ada push ke `main`. Pastikan Repository Settings > Pages > Build and deployment menggunakan GitHub Actions.
 
-## Database
-Jalankan isi `supabase/schema.sql` melalui SQL Editor Supabase. Schema menyiapkan tabel profil, kategori, produk, pesanan, item pesanan, dan stok, beserta Row Level Security dasar.
+## Fitur
 
-## Catatan status
-- Google OAuth baru aktif setelah konfigurasi Supabase dan Google Cloud selesai.
-- Mode demo menyimpan pesanan dan stok di localStorage browser.
-- Tampilan dan interaksi dashboard sudah tersedia. Sinkronisasi transaksi/menu/stok ke tabel Supabase adalah tahap integrasi berikutnya.
-- GitHub Pages hanya melayani frontend statis. Supabase menjadi layanan autentikasi dan database.
+- Google sign-in melalui Supabase Auth setelah kredensial dikonfigurasi.
+- Dashboard ringkasan omzet dan pesanan.
+- Katalog menu dan quick order.
+- Pencatatan transaksi dan item pesanan ke Supabase.
+- Inventory dan laporan penjualan.
+- Dark mode / light mode dengan preferensi tersimpan.
+- Layout responsif untuk desktop dan HP.
+- Mode demo memakai localStorage jika Supabase belum dikonfigurasi.
+
+## Status integrasi
+
+Aplikasi sudah disiapkan untuk membaca dan menulis produk, pesanan, item pesanan, serta stok ke Supabase. Login Google tetap memerlukan konfigurasi OAuth di dashboard Google dan Supabase. Jalankan schema SQL sebelum menghubungkan kredensial agar tabel dan policy tersedia.
