@@ -80,6 +80,20 @@ text(caption.slice(0,38),540,1730,32,"Arial");sticker("✦",140,180,70);sticker(
 }else{
  photo(65,270,950,1260);ctx.strokeStyle=t.accent;ctx.lineWidth=8;ctx.strokeRect(48,250,984,1300);text(caption.slice(0,36),540,1640,42,"Georgia","italic");
 }
+if(photoCount===1){
+if(t.id==="cream"){ctx.save();ctx.translate(125,300);ctx.rotate(-.12);ctx.fillStyle="#fff8e8cc";ctx.fillRect(-48,-22,190,44);ctx.restore();sticker("made with love",870,1580,24);}
+if(t.id==="pink"){sticker("♡",880,280,95);sticker("♡",180,1450,70);sticker("xoxo",850,1690,34);}
+if(t.id==="film"){for(let y=300;y<1560;y+=115){ctx.fillStyle="#fff2d8";ctx.beginPath();ctx.arc(72,y,8,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(1008,y,8,0,Math.PI*2);ctx.fill();}}
+if(t.id==="polaroid"){ctx.save();ctx.translate(800,260);ctx.rotate(.16);ctx.fillStyle="#d9b78d";ctx.fillRect(-70,-12,140,24);ctx.restore();sticker("♡",900,1650,62);}
+if(t.id==="matcha"){sticker("☘",900,280,90);sticker("sip slowly",180,1670,27);}
+if(t.id==="midnight"){for(let i=0;i<18;i++){const x=100+(i*173)%880,y=260+(i*239)%1380;ctx.fillStyle=t.accent;ctx.globalAlpha=.65;ctx.beginPath();ctx.arc(x,y,3+(i%3)*2,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;}
+if(t.id==="retro"){sticker("★",160,1650,90);sticker("★",930,260,80);ctx.strokeStyle=t.ink;ctx.lineWidth=5;ctx.strokeRect(40,230,1000,1390);}
+if(t.id==="blue"){sticker("☁",900,280,100);sticker("✧",160,1550,65);}
+if(t.id==="lavender"){sticker("✦",160,280,75);sticker("✦",920,1450,75);}
+if(t.id==="newspaper"){ctx.strokeStyle=t.ink;ctx.lineWidth=2;ctx.strokeRect(70,235,940,1350);txt;}
+if(t.id==="sunset"){ctx.fillStyle="#fff1d866";ctx.beginPath();ctx.arc(870,350,95,0,Math.PI*2);ctx.fill();sticker("☼",180,1550,70);}
+if(t.id==="mono"){ctx.strokeStyle=t.ink;ctx.lineWidth=2;ctx.setLineDash([10,12]);ctx.strokeRect(75,260,930,1260);ctx.setLineDash([]);}
+}
 text("BREWLY",540,105,66,"Georgia","bold");text("COFFEE  •  MOMENTS  •  YOU",540,1810,27);text("YOUR LITTLE PHOTOBOOTH",540,1860,21);
 }
 document.getElementById("theme-picker").innerHTML=themes.map(t=>'<button type="button" class="theme-choice '+(t.id===activeTheme?'active':'')+'" data-theme="'+t.id+'"><span>'+t.emoji+'</span>'+t.name+'</button>').join("");document.querySelectorAll("[data-theme]").forEach(b=>b.onclick=()=>{activeTheme=b.dataset.theme;document.querySelectorAll("[data-theme]").forEach(x=>x.classList.toggle("active",x===b));drawStory()});
