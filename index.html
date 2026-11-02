@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabaseClient/supabaseClient-js@2"></script>
 <style>
 :root{color-scheme:light;--bg:#f5f1e9;--panel:rgba(255,255,255,.72);--panel-solid:#fffdf8;--text:#30251f;--muted:#887a70;--line:rgba(83,61,47,.12);--accent:#754b35;--accent-2:#a47758;--soft:#eee5d9;--green:#607c62;--shadow:0 12px 36px rgba(66,45,30,.07)}
 :root[data-theme=dark]{color-scheme:dark;--bg:#191715;--panel:rgba(42,37,33,.82);--panel-solid:#25211e;--text:#f1e9df;--muted:#aa9b8e;--line:rgba(235,220,203,.12);--accent:#c89b78;--accent-2:#dfb18a;--soft:#352d27;--green:#9ab39a;--shadow:0 12px 36px rgba(0,0,0,.22)}
@@ -68,7 +68,7 @@
 const SUPABASE_URL = "https://ghtejbihwtycnynazrnc.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_eoIi8zN6vCxT8D3FZ9Ok-g_kFbd2BaM";
 const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_");
-const supabase = configured && window.supabase ? window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY) : null;
+const supabaseClient = configured && window.supabase ? window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY) : null;
 let currentUser = null;
 let demoMode = false;
 let products = [
@@ -89,26 +89,26 @@ function toggleTheme(){setTheme(document.documentElement.dataset.theme==="dark"?
 setTheme(localStorage.getItem("brewly-theme")||"light");
 document.getElementById("theme-toggle").onclick=toggleTheme;document.getElementById("settings-theme").onclick=toggleTheme;
 function showApp(user){currentUser=user;document.getElementById("login").classList.add("hidden");document.getElementById("app").classList.remove("hidden");const name=user?.user_metadata?.full_name||user?.user_metadata?.name||"Nono";const email=user?.email||"Demo account";document.getElementById("side-name").textContent=name;document.getElementById("side-email").textContent=email;document.getElementById("account-detail").textContent=email;const avatar=user?.user_metadata?.avatar_url||user?.user_metadata?.picture;if(avatar)document.getElementById("side-avatar").innerHTML='<img src="'+avatar+'" alt="Profile">';else document.getElementById("side-avatar").textContent=name.charAt(0).toUpperCase();document.getElementById("today").textContent=new Intl.DateTimeFormat("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date());render()}
-async function loginGoogle(){if(!supabase){toast("Isi URL dan key Supabase dulu. Mode demo masih tersedia.");return}const {error}=await supabase.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname,queryParams:{access_type:"offline",prompt:"select_account"}}});if(error)toast(error.message)}
+async function loginGoogle(){if(!supabaseClient){toast("Isi URL dan key Supabase dulu. Mode demo masih tersedia.");return}const {error}=await supabaseClient.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname,queryParams:{access_type:"offline",prompt:"select_account"}}});if(error)toast(error.message)}
 document.getElementById("google-login").onclick=loginGoogle;
 document.getElementById("demo-login").onclick=()=>{demoMode=true;showApp({email:"demo@brewly.local",user_metadata:{name:"Nono"}})};
-async function logout(){if(supabase&&!demoMode)await supabase.auth.signOut();currentUser=null;demoMode=false;document.getElementById("app").classList.add("hidden");document.getElementById("login").classList.remove("hidden")}
+async function logout(){if(supabaseClient&&!demoMode)await supabaseClient.auth.signOut();currentUser=null;demoMode=false;document.getElementById("app").classList.add("hidden");document.getElementById("login").classList.remove("hidden")}
 document.getElementById("logout").onclick=logout;document.getElementById("profile-btn").onclick=()=>navigate("settings");
 function navigate(page){document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));document.getElementById("page-"+page).classList.remove("hidden");document.getElementById("page-title").textContent=page.charAt(0).toUpperCase()+page.slice(1)}
 document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>navigate(b.dataset.page));
 async function loadWorkspaceData(){
- if(!supabase||demoMode){render();return}
+ if(!supabaseClient||demoMode){render();return}
  const [p,o,i]=await Promise.all([
-  supabase.from("products").select("*").order("created_at"),
-  supabase.from("orders").select("*, order_items(*)").order("created_at",{ascending:false}).limit(200),
-  supabase.from("inventory").select("*").order("name")
+  supabaseClient.from("products").select("*").order("created_at"),
+  supabaseClient.from("orders").select("*, order_items(*)").order("created_at",{ascending:false}).limit(200),
+  supabaseClient.from("inventory").select("*").order("name")
  ]);
  if(p.error||o.error||i.error){console.error(p.error||o.error||i.error);toast("Gagal memuat database. Periksa schema dan RLS.");render();return}
  if(p.data.length){products=p.data.map(x=>({id:x.id,name:x.name,category:x.category||"Other",price:Number(x.price),desc:x.description||"",image:x.image_url||"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=700&q=85"}))}
  else {
   const seed=products.map(({name,category,price,desc,image})=>({name,category,price,description:desc,image_url:image,is_available:true}));
-  const inserted=await supabase.from("products").insert(seed);
-  if(!inserted.error){const fresh=await supabase.from("products").select("*").order("created_at");if(!fresh.error)products=fresh.data.map(x=>({id:x.id,name:x.name,category:x.category||"Other",price:Number(x.price),desc:x.description||"",image:x.image_url||""}))}
+  const inserted=await supabaseClient.from("products").insert(seed);
+  if(!inserted.error){const fresh=await supabaseClient.from("products").select("*").order("created_at");if(!fresh.error)products=fresh.data.map(x=>({id:x.id,name:x.name,category:x.category||"Other",price:Number(x.price),desc:x.description||"",image:x.image_url||""}))}
  }
  orders=(o.data||[]).map(x=>({id:x.order_number,item:(x.order_items||[]).map(y=>y.quantity+"x "+y.product_name).join(", ")||x.customer_name||"Order",total:Number(x.total),status:x.status==="completed"?"Completed":x.status,date:x.created_at,dbId:x.id}));
  stock=(i.data||[]).map(x=>({id:x.id,name:x.name,qty:Number(x.quantity),unit:x.unit}));
@@ -128,10 +128,10 @@ function render(){
 async function createOrder(id){
  const p=products.find(x=>String(x.id)===String(id));if(!p)return;
  const orderNo="BW-"+Date.now().toString().slice(-9),date=new Date().toISOString();
- if(supabase&&!demoMode){
-  const {data,error}=await supabase.from("orders").insert({order_number:orderNo,created_by:currentUser.id,customer_name:"Walk-in customer",status:"completed",subtotal:p.price,total:p.price}).select().single();
+ if(supabaseClient&&!demoMode){
+  const {data,error}=await supabaseClient.from("orders").insert({order_number:orderNo,created_by:currentUser.id,customer_name:"Walk-in customer",status:"completed",subtotal:p.price,total:p.price}).select().single();
   if(error){toast("Order gagal disimpan: "+error.message);return}
-  const itemResult=await supabase.from("order_items").insert({order_id:data.id,product_id:p.id,product_name:p.name,quantity:1,unit_price:p.price,line_total:p.price});
+  const itemResult=await supabaseClient.from("order_items").insert({order_id:data.id,product_id:p.id,product_name:p.name,quantity:1,unit_price:p.price,line_total:p.price});
   if(itemResult.error){toast("Order tersimpan, item gagal: "+itemResult.error.message);return}
   orders.unshift({id:orderNo,item:p.name,total:p.price,status:"Completed",date,dbId:data.id});
  }else{orders.unshift({id:orderNo,item:p.name,total:p.price,status:"Completed",date});save()}
@@ -140,23 +140,23 @@ async function createOrder(id){
 document.getElementById("new-order").onclick=()=>{if(!products.length)return;const choice=prompt("Masukkan nomor menu:\n"+products.map((p,i)=>(i+1)+". "+p.name+" - "+money(p.price)).join("\n"));const p=products[Number(choice)-1];if(p)createOrder(p.id)};
 document.getElementById("add-menu").onclick=async()=>{
  const name=prompt("Nama menu");if(!name)return;const price=Number(prompt("Harga (angka, contoh 28000)"));if(!Number.isFinite(price)||price<=0)return toast("Harga tidak valid");const category=prompt("Kategori (Coffee / Non Coffee / Bakery)")||"Other";const description=prompt("Deskripsi menu")||"";
- if(supabase&&!demoMode){const {data,error}=await supabase.from("products").insert({name,category,price,description,is_available:true}).select().single();if(error)return toast("Gagal tambah menu: "+error.message);products.push({id:data.id,name,category,price,desc:description,image:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=700&q=85"})}
+ if(supabaseClient&&!demoMode){const {data,error}=await supabaseClient.from("products").insert({name,category,price,description,is_available:true}).select().single();if(error)return toast("Gagal tambah menu: "+error.message);products.push({id:data.id,name,category,price,desc:description,image:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=700&q=85"})}
  else products.push({id:Date.now(),name,category,price,desc:description,image:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=700&q=85"});
  render();toast("Menu berhasil ditambahkan");
 };
 document.getElementById("add-stock").onclick=async()=>{
  const name=prompt("Nama bahan");if(!name)return;const qty=Number(prompt("Jumlah stok"));if(!Number.isFinite(qty)||qty<0)return;const unit=prompt("Satuan (kg, L, pcs)")||"pcs";
- if(supabase&&!demoMode){const {data,error}=await supabase.from("inventory").insert({name,quantity:qty,unit}).select().single();if(error)return toast("Gagal tambah stok: "+error.message);stock.push({id:data.id,name,qty,unit})}
+ if(supabaseClient&&!demoMode){const {data,error}=await supabaseClient.from("inventory").insert({name,quantity:qty,unit}).select().single();if(error)return toast("Gagal tambah stok: "+error.message);stock.push({id:data.id,name,qty,unit})}
  else stock.push({id:Date.now(),name,qty,unit});
  save();render();toast("Stok berhasil ditambahkan");
 };
 document.getElementById("today").textContent=new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
 async function init(){
- if(!supabase)return;
- const {data,error}=await supabase.auth.getSession();
+ if(!supabaseClient)return;
+ const {data,error}=await supabaseClient.auth.getSession();
  if(error){toast("Gagal memeriksa sesi login");return}
  if(data.session){demoMode=false;showApp(data.session.user);await loadWorkspaceData()}
- supabase.auth.onAuthStateChange(async(event,session)=>{if(session){demoMode=false;showApp(session.user);await loadWorkspaceData()}else if(event==="SIGNED_OUT"){document.getElementById("app").classList.add("hidden");document.getElementById("login").classList.remove("hidden")}});
+ supabaseClient.auth.onAuthStateChange(async(event,session)=>{if(session){demoMode=false;showApp(session.user);await loadWorkspaceData()}else if(event==="SIGNED_OUT"){document.getElementById("app").classList.add("hidden");document.getElementById("login").classList.remove("hidden")}});
 }
 init();
 </script>
