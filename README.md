@@ -1,75 +1,84 @@
 # BREWLY
 
-Coffee shop management app dengan dashboard, menu, order, inventory, sales report, Google sign-in, dan dark/light mode.
+BREWLY is a coffee shop management app with a dashboard for menus, orders, stock, and sales. It also has Google sign-in, dark and light themes, and a layout that works on desktop and mobile.
 
-## Stack
-- HTML, CSS, JavaScript
-- Supabase Auth untuk Google OAuth
-- Supabase Postgres untuk data produk, transaksi, item pesanan, profil, dan stok
-- GitHub Pages untuk hosting frontend
+Live site: https://ahmadfas213-cell.github.io/Coffe-Shop/
 
-## Setup Supabase
+## Built with
 
-1. Buat project baru di [Supabase](https://supabase.com/dashboard).
-2. Tunggu project selesai dibuat.
-3. Buka SQL Editor di dashboard Supabase.
-4. Salin seluruh isi file `supabase/schema.sql`, tempel ke SQL Editor, lalu klik Run.
-5. Buka Project Settings > API. Salin Project URL dan publishable key (atau anon key lama).
-6. Di `index.html`, ganti:
-   - `YOUR_SUPABASE_PROJECT_URL` dengan Project URL.
-   - `YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY` dengan publishable/anon key.
-7. Commit perubahan tersebut ke branch `main`.
+- HTML, CSS, and JavaScript
+- Supabase Auth for Google sign-in
+- Supabase Postgres for products, orders, order items, profiles, and stock
+- GitHub Pages for the frontend
 
-Publishable/anon key memang boleh dipakai di frontend jika Row Level Security aktif dan policy database benar. Jangan pernah menaruh service_role key di frontend atau repository publik.
+## Features
 
-## Setup Google Login
+- Dashboard for sales and order summaries
+- Menu catalog and quick orders
+- Order and transaction records
+- Inventory and sales reports
+- Google sign-in through Supabase
+- Dark and light themes
+- Responsive layout
+- Browser-based demo mode using localStorage when Supabase is not configured
+- PWA installation support
 
-1. Di Supabase, buka Authentication > Sign In / Providers > Google. Aktifkan Google provider dan salin callback URL yang disediakan Supabase. Bentuknya seperti `https://<project-ref>.supabase.co/auth/v1/callback`.
-2. Buka [Google Cloud Console](https://console.cloud.google.com/). Buat atau pilih project.
-3. Masuk ke Google Auth Platform / Clients, buat OAuth Client ID dengan tipe Web application.
-4. Pada Authorized JavaScript origins tambahkan:
+## Set up Supabase
+
+1. Create a project in the [Supabase dashboard](https://supabase.com/dashboard).
+2. Open SQL Editor.
+3. Run the full contents of `supabase/schema.sql`.
+4. Open Project Settings → API.
+5. Copy the Project URL and publishable key (or the legacy anon key).
+6. In `index.html`, replace:
+   - `YOUR_SUPABASE_PROJECT_URL` with the project URL.
+   - `YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY` with the publishable or anon key.
+7. Commit and push the changes to `main`.
+
+The publishable/anon key can be used in a frontend when Row Level Security and database policies are configured correctly. Do not put the `service_role` key in frontend code or a public repository.
+
+## Set up Google sign-in
+
+1. In Supabase, open Authentication → Sign In / Providers → Google.
+2. Enable Google and copy the callback URL shown by Supabase. It looks like `https://<project-ref>.supabase.co/auth/v1/callback`.
+3. Open [Google Cloud Console](https://console.cloud.google.com/) and select or create a project.
+4. Create an OAuth Client ID with the **Web application** type.
+5. Add these JavaScript origins:
    - `https://ahmadfas213-cell.github.io`
-   - `http://localhost:5500` (untuk pengujian lokal)
-5. Pada Authorized redirect URIs masukkan callback URL dari Supabase, bukan URL GitHub Pages.
-6. Salin Google Client ID dan Client Secret ke pengaturan Google provider di Supabase, lalu simpan.
-7. Di Supabase, buka Authentication > URL Configuration. Atur Site URL ke `https://ahmadfas213-cell.github.io/Coffe-Shop/` dan tambahkan URL itu ke Redirect URLs. Untuk lokal, tambahkan `http://localhost:5500/**`.
+   - `http://localhost:5500` for local testing
+6. Add the Supabase callback URL to Authorized redirect URIs.
+7. Copy the Google Client ID and Client Secret into the Google provider settings in Supabase.
+8. In Supabase, open Authentication → URL Configuration.
+9. Set the Site URL to `https://ahmadfas213-cell.github.io/Coffe-Shop/` and add it to Redirect URLs.
+10. For local testing, add `http://localhost:5500/**`.
 
-Jangan commit Google Client Secret ke GitHub. Secret hanya dimasukkan ke dashboard Supabase.
+Keep the Google Client Secret in Supabase. Do not commit it to GitHub.
 
-## Menjalankan lokal
+## Run locally
 
-Jalankan local server dari folder project:
+From the project directory, start a local server:
 
 ```bash
 python -m http.server 5500
 ```
 
-Buka `http://localhost:5500`.
+Then open:
 
-## Deploy GitHub Pages
+```text
+http://localhost:5500
+```
 
-Workflow tersedia di `.github/workflows/deploy.yml` dan berjalan saat ada push ke `main`. Pastikan Repository Settings > Pages > Build and deployment menggunakan GitHub Actions.
+## Deploy to GitHub Pages
 
-## Fitur
+The workflow in `.github/workflows/deploy.yml` runs on pushes to `main`.
 
-- Google sign-in melalui Supabase Auth setelah kredensial dikonfigurasi.
-- Dashboard ringkasan omzet dan pesanan.
-- Katalog menu dan quick order.
-- Pencatatan transaksi dan item pesanan ke Supabase.
-- Inventory dan laporan penjualan.
-- Dark mode / light mode dengan preferensi tersimpan.
-- Layout responsif untuk desktop dan HP.
-- Mode demo memakai localStorage jika Supabase belum dikonfigurasi.
+In the repository settings, open Pages → Build and deployment and select **GitHub Actions** as the source.
 
-## Status integrasi
+## Extra modules
 
-Aplikasi sudah disiapkan untuk membaca dan menulis produk, pesanan, item pesanan, serta stok ke Supabase. Login Google tetap memerlukan konfigurasi OAuth di dashboard Google dan Supabase. Jalankan schema SQL sebelum menghubungkan kredensial agar tabel dan policy tersedia.
+BREWLY also includes these operational modules:
 
-
-## Modul operasional tambahan
-
-BREWLY menyediakan 20 modul operasional:
-1. POS / kasir multi-menu
+1. POS / cashier
 2. Customer CRM
 3. Loyalty points
 4. Promotions
@@ -90,8 +99,14 @@ BREWLY menyediakan 20 modul operasional:
 19. Cash closing
 20. Task checklist
 
-### Mengaktifkan penyimpanan lintas perangkat untuk modul tambahan
+### Save extra module data across devices
 
-Setelah menjalankan `supabase/schema.sql`, jalankan juga seluruh isi `supabase/brewly_v2_addons.sql` melalui Supabase SQL Editor. File add-on ini hanya menambahkan tabel `workspace_records` dan policy RLS-nya. Tanpa migration tersebut, data modul tambahan tetap dapat dicoba dalam mode demo tetapi disimpan lokal di browser perangkat.
+After running `supabase/schema.sql`, run the full contents of `supabase/brewly_v2_addons.sql` in Supabase SQL Editor.
 
-Tombol Install tersedia di kanan atas halaman login dan dashboard. BREWLY dapat dipasang sebagai PWA melalui browser yang mendukung instalasi.
+This migration adds the `workspace_records` table and its RLS policy. Without it, the extra modules can still be tested in demo mode, but their data stays in the browser's localStorage.
+
+## Current integration status
+
+The app is prepared to read and write products, orders, order items, and stock through Supabase. Google sign-in still needs OAuth credentials from Google Cloud and Supabase. Run the SQL schema before adding the credentials.
+
+The Install button is available on the login page and dashboard. Use a browser that supports PWA installation to add BREWLY to your device.
